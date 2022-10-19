@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myprovider/item.dart';
+import 'package:myprovider/products.dart';
 import 'package:provider/provider.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -16,19 +17,18 @@ class MyApp extends StatelessWidget {
     return ResponsiveSizer(
       builder: (context, orientation, screenType) {
         return MultiProvider(
-          providers: [
-            ChangeNotifierProvider(
-              create: (context) => Item(0),
-            )
-          ],
-          child: MaterialApp(
-            title: 'Flutter Demo',
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
-            ),
-            home: const MyHomePage(title: 'Flutter Demo Home Page'),
-          ),
-        );
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => Item(0),
+              )
+            ],
+            child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                title: 'Flutter Demo',
+                theme: ThemeData(
+                  primarySwatch: Colors.blue,
+                ),
+                home: ProductsScreen()));
       },
     );
   }
