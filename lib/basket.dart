@@ -21,14 +21,15 @@ class _basketScreenState extends State<basketScreen> {
     return Consumer(
       builder: ((context, Item item, widget) {
         return Scaffold(
+          backgroundColor: Colors.blueGrey[200],
           appBar: AppBar(
             backgroundColor: Colors.indigo[400],
             actions: [
               Container(
-                //alignment: Alignment.centerLeft,
+                alignment: Alignment.centerLeft,
                 width: 50.h,
                 child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Column(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -76,76 +77,63 @@ class _basketScreenState extends State<basketScreen> {
                 )
               : Column(
                   children: [
-                    Stack(
-                      children: <Widget>[
-                        Container(
-                          width: 100.w,
-                          height: 86.h,
-                          child: SizedBox(
-                            height: 60.h,
-                            child: ListView.builder(
-                              itemCount: item.basket!.length,
-                              itemBuilder: (context, index) {
-                                return Container(
-                                  margin: EdgeInsets.only(bottom: 1.h),
-                                  padding:
-                                      EdgeInsets.only(right: 3.w, left: 3.w),
-                                  color: Colors.black12,
-                                  width: 100.w,
-                                  height: 10.h,
-                                  child: Row(
-                                    children: [
-                                      ClipRRect(
-                                        borderRadius:
-                                            BorderRadius.circular(2.w),
-                                        child: SizedBox(
-                                          width: 7.h,
-                                          height: 7.h,
-                                          child: Image.network(
-                                              "${item.basket![index]["image"]}"),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        width: 2.w,
-                                        height: 2.w,
-                                      ),
-                                      Text(
-                                        "${item.basket![index]["title"]}",
-                                        style: TextStyle(
-                                            fontSize: 16.sp,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                      SizedBox(
-                                        width: 4.w,
-                                        height: 4.w,
-                                      ),
-                                      Text(
-                                        "Ürün Fiyatı: ${item.basket![index]["price"]}",
-                                        style: TextStyle(
-                                            fontStyle: FontStyle.italic),
-                                      ),
-                                      Spacer(),
-                                      InkWell(
-                                        onTap: () {
-                                          item.removeBasket(index);
-                                        },
-                                        child: Container(
-                                          width: 4.h,
-                                          height: 4.h,
-                                          decoration: BoxDecoration(
-                                              color: Colors.red[300],
-                                              shape: BoxShape.circle),
-                                          child: Icon(Icons.remove),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                );
+                    Container(
+                      width: 100.w,
+                      height: 86.h,
+                      child: SizedBox(
+                        height: 60.h,
+                        child: ListView.builder(
+                          itemCount: item.basket!.length,
+                          itemBuilder: (context, index) {
+                            return Dismissible(
+                              background: Container(
+                                color: Colors.blueGrey[200],
+                              ),
+                              key: UniqueKey(),
+                              onDismissed: (direction) {
+                                item.removeBasket(index);
                               },
-                            ),
-                          ),
+                              child: Container(
+                                margin: EdgeInsets.only(bottom: 1.h),
+                                padding: EdgeInsets.only(right: 3.w, left: 3.w),
+                                color: Colors.black12,
+                                width: 100.w,
+                                height: 10.h,
+                                child: Row(
+                                  children: [
+                                    ClipRRect(
+                                      borderRadius: BorderRadius.circular(2.w),
+                                      child: SizedBox(
+                                        width: 7.h,
+                                        height: 7.h,
+                                        child: Image.network(
+                                            "${item.basket![index]["image"]}"),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: 2.w,
+                                      height: 2.w,
+                                    ),
+                                    Text(
+                                      "${item.basket![index]["title"]}",
+                                      style: TextStyle(
+                                          fontSize: 16.sp,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                    Spacer(),
+                                    Text(
+                                      "Ürün Fiyatı: ${item.basket![index]["price"]}",
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic,
+                                          fontWeight: FontWeight.w500),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                      ],
+                      ),
                     ),
                   ],
                 ),
