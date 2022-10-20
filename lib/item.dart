@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 
 class Item with ChangeNotifier {
   List? basket = [];
-  double totalPrice = 0;
+  String get price => "${getPrice().toString()} ₺";
 
   List? products = [
     {
@@ -32,16 +32,27 @@ class Item with ChangeNotifier {
   ];
 
   Item(int i);
+  int getPrice() {
+    int price = 0;
+    for (var i = 0; i < basket!.length; i++) {
+      price += int.parse(basket![i]["price"].toString());
+    }
+    return price;
+  }
 
   void addBasket(Object value) {
     basket!.add(value);
-
     notifyListeners();
   }
 
   void removeBasket(int index) {
     basket!.removeAt(index);
     notifyListeners(); //removeAt yerine remove kullanınca son ekleneni çıkarıyor istenen indexi değil bu yüzden removeAt kullanırız.
+  }
+
+  void clearList() {
+    basket = [];
+    notifyListeners();
   }
 }
 

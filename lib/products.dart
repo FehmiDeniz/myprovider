@@ -24,7 +24,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
               Row(
                 children: [
                   Text(
-                    "${item.totalPrice} TL",
+                    "${item.price} ",
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.w700),
                   ),
@@ -99,6 +99,7 @@ class _ProductsScreenState extends State<ProductsScreen> {
                                           'Fiyat : ${item.products![index]["price"]} tl',
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold)),
+                                  TextSpan(text: "\n"),
                                   TextSpan(
                                       text:
                                           '\n${item.products![index]["description"]}',
@@ -113,8 +114,6 @@ class _ProductsScreenState extends State<ProductsScreen> {
                           InkWell(
                             onTap: () {
                               item.addBasket(item.products![index]);
-                              item.totalPrice = item.totalPrice +
-                                  item.products![index]["price"];
                             },
                             child: Container(
                               width: 4.h,
